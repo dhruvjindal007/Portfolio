@@ -2,22 +2,28 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
-//dotenv config
+// dotenv config
 dotenv.config()
 
-//rest object
+// rest object
 const app = express()
 
-//middlewares
+// middlewares
 app.use(cors())
 app.use(express.json())
 
-//routes
+// root route for testing
+app.get('/', (req, res) => {
+  res.send('API is running...')
+})
+
+// routes
 app.use('/api/v1/portfolio', require('./routes/portfolioRoute'))
-//port
+
+// port
 const PORT = process.env.PORT || 8080
 
-//listen
+// listen
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port ${PORT}`)
 })
