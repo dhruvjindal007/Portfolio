@@ -1,0 +1,143 @@
+.edu {
+  /* Remove fixed left margin to avoid collision with sidebar */
+  padding: 0 40px 0 40px;
+  margin: 50px auto; /* center container horizontally */
+  max-width: 1200px;
+  transition: margin 0.4s ease;
+}
+
+.edu h2 {
+  font-style: cursive;
+  color: var(--primary-color); /* Use theme variable for better visibility */
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 0 6px #faad3b80; /* softer orange glow */
+}
+
+.edu hr {
+  width: 400px;
+  margin: 10px auto;
+  border: none;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(242, 148, 75, 0.8) 0%,
+    rgba(247, 201, 114, 0.5) 100%
+  );
+  box-shadow: 0 0 12px #f2944bbb;
+  border-radius: 20px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edu .vertical-timeline-element-content {
+  box-shadow: 4px 6px 20px rgba(242, 144, 75, 0.3);
+  border-radius: 14px;
+  padding: 22px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Hover effect for timeline content to add glow */
+.edu .vertical-timeline-element-content:hover {
+  box-shadow: 0 0 20px 6px var(--primary-color);
+  transform: translateY(-4px);
+  cursor: default;
+}
+
+/* Add smooth transitions to timeline element titles and subtitles */
+.edu .vertical-timeline-element-title,
+.edu .vertical-timeline-element-subtitle {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* On hover, emphasize the glow */
+.edu .vertical-timeline-element-content:hover h3,
+.edu .vertical-timeline-element-content:hover h4 {
+  color: #ffab40;
+  text-shadow: 0 0 12px #ffab4088;
+}
+
+.edu .vertical-timeline-element-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-shadow: 0 0 6px var(--primary-color);
+}
+
+.edu .vertical-timeline-element-subtitle {
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-top: 4px;
+  text-shadow: 0 0 4px var(--secondary-color)cc;
+}
+
+/* Override timeline arrow style */
+.vertical-timeline-element-content-arrow {
+  border-right: 8px solid var(--primary-color) !important;
+}
+
+/* Icon styling */
+.vertical-timeline-element-icon {
+  box-shadow: 0 0 12px 2px var(--primary-color);
+  background: linear-gradient(145deg, #23243f, #121224);
+  color: var(--primary-color);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.4s ease, color 0.4s ease;
+}
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  .edu {
+    margin: 30px 15px 50px 15px;
+    padding: 0 15px;
+  }
+
+  .edu hr {
+    width: 280px;
+  }
+
+  .edu h2 {
+    font-size: 30px;
+    padding: 0 10px;
+  }
+
+  .vertical-timeline-element-content {
+    padding: 18px 14px;
+  }
+}
+
+/* Dark Mode Support */
+#dark .edu {
+  margin: 50px auto;
+  background-color: var(--bg-dark);
+}
+
+#dark .edu hr {
+  background: linear-gradient(90deg, rgba(242, 148, 75, 0.6) 0%, rgba(247, 201, 114, 0.3) 100%);
+  box-shadow: 0 0 12px #f29f6799;
+}
+
+#dark .edu .vertical-timeline-element-content {
+  background-color: var(--section-bg);
+  box-shadow: 0 0 18px 4px var(--primary-color);
+  color: var(--text-color);
+}
+
+#dark .vertical-timeline-element-title {
+  color: var(--primary-color);
+  text-shadow: 0 0 12px var(--primary-color);
+}
+
+#dark .vertical-timeline-element-subtitle {
+  color: var(--secondary-color);
+}
+
+#dark .vertical-timeline-element-icon {
+  background: linear-gradient(145deg, #161622, #23243f);
+  box-shadow: 0 0 16px 3px var(--primary-color);
+  color: var(--primary-color);
+}

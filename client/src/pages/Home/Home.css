@@ -1,0 +1,198 @@
+:root {
+  --primary-color: #f29f67;
+  --secondary-color: #3b8ff3;
+  --text-color-light: #e0b50f;
+  --text-color-dark: #f29f67;
+  --bg-dark: #161622;
+  --bg-light: #ffffff;
+  --font-family-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --btn-shadow: rgba(243, 159, 103, 0.6);
+}
+
+/* Container */
+.home-container {
+  min-height: unset;
+  padding-left: 100px; /* Or even 60px if sidebar is narrow */
+  padding-top: 40px;   /* Less "gap" at the top */
+  color: white;
+  transition: padding-left 0.4s ease;
+  background: linear-gradient(135deg, #121224 20%, #23243f 95%);
+  font-family: var(--font-family-main);
+  position: relative; /* for watermark if added */
+}
+
+/* Text content */
+.home-content h1 {
+  color: var(--text-color-light);
+  font-size: 3.2rem;
+  font-weight: 900;
+  padding: 5px 0;
+  letter-spacing: 1.2px;
+  text-shadow:
+    0 0 10px var(--primary-color),
+    0 0 25px rgba(242, 149, 75, 0.7);
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+.home-content h2 {
+  padding: 5px 0 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #d3d3d3;
+  letter-spacing: 1px;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* Typewriter cursor glow with blink effect */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.home-content h2 .Typewriter__cursor {
+  color: var(--primary-color);
+  text-shadow: 0 0 6px var(--primary-color);
+  font-weight: 800;
+  animation: blink 1.2s infinite;
+}
+
+/* Buttons container */
+.home-buttons {
+  margin-top: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hiring button */
+.btn-primary {
+  background-color: var(--secondary-color);
+  border: none;
+  color: #fff;
+  width: 160px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  padding: 10px 0;
+  box-shadow: 0 0 14px var(--secondary-color);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #fff;
+  color: var(--secondary-color);
+  width: 200px;
+  box-shadow: 0 0 25px var(--secondary-color);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* Resume download button */
+.btn-cv {
+  background-color: var(--primary-color);
+  color: white;
+  margin-left: 15px;
+  width: 160px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  padding: 10px 0;
+  border: none;
+  box-shadow: 0 0 12px var(--btn-shadow);
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-cv:hover,
+.btn-cv:focus {
+  opacity: 0.85;
+  box-shadow: 0 0 28px var(--btn-shadow);
+  transform: scale(1.03);
+  outline: none;
+}
+
+/* Theme toggle button */
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  background-color: #1e1e1e;
+  margin-top: 20px;
+  text-align: center;
+  position: fixed;
+  right: 0;
+  top: 100px;
+  cursor: pointer;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 101;
+  box-shadow: 0 0 12px #f29f67;
+  transition: box-shadow 0.3s ease;
+  border: none;
+}
+
+.theme-btn:hover,
+.theme-btn:focus {
+  box-shadow: 0 0 38px 3px #f29f67;
+  outline: none;
+}
+
+.theme-btn svg {
+  color: #f29f67;
+  transition: color 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .home-container {
+    padding-left: 12px;
+    padding-top: 24px;
+    height: auto;
+  }
+  .home-content h1 {
+  font-size: 2.4rem;     /* From 3.2rem */
+  padding: 2px 0;
+}
+.home-content h2 {
+  padding: 0 0 10px;
+  font-size: 1.2rem;     /* From 1.8rem */
+}
+
+  .home-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  .btn-primary,
+  .btn-cv {
+    width: 130px;
+  padding: 8px 0;
+  font-size: 1rem;
+
+  }
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding-left: 20px;
+    padding-top: 40px;
+  }
+  .home-content h1,
+  .home-content h2 {
+    font-size: 1.8rem;
+  }
+  .theme-btn {
+    top: 60px;
+  }
+}

@@ -1,0 +1,128 @@
+/* ==== NAVBAR PROFILE (LARGE PHOTO) ==== */
+.navbar-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 16px 12px 16px;
+  width: 98%;
+  justify-content: flex-start;
+}
+
+.navbar-profile-pic {
+  width: 90px;           /* Larger size */
+  height: 90px;
+  border-radius: 18px;   /* Slightly rounded, or use 50% for circles */
+  object-fit: cover;
+  background: linear-gradient(120deg, #212a42 50%, #171c34 100%);
+  box-shadow: 0 2px 24px 4px #7b6ef5aa;
+  margin: 0;             /* Remove vertical margin */
+  display: block;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.navbar-profile-pic:hover {
+  transform: scale(1.07) rotate(-1deg);
+  box-shadow: 0 4px 44px 10px #7b6ef5dd;
+}
+
+/* ==== NAVIGATION LINKS ==== */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link svg {
+  color: #7b6ef7;
+  filter: drop-shadow(0 0 4px #7b6ef799);
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background: linear-gradient(90deg, #26284a 60%, #14152a 100%);
+  color: #f29f67;
+  box-shadow: 0 2px 16px 1px #f29f674a;
+  outline: none;
+  transform: scale(1.03);
+}
+
+.nav-link:hover svg,
+.nav-link:focus-visible svg {
+  color: #f29f67;
+  filter: drop-shadow(0 0 13px #f29f67bb);
+}
+
+.nav-link span {
+  transition: opacity 0.2s ease, margin 0.2s ease;
+}
+
+.nav-link .active,
+.nav-link .active span,
+.nav-link span.active {
+  color: #f29f67;
+  border-left: 3.5px solid #f29f67;
+  padding-left: 13px;
+  background: linear-gradient(87deg, #251e37 80%, #231b2c 100%);
+  box-shadow: 0 0 11px #faad3b41;
+  border-radius: 5.5px;
+}
+
+.nav-link .active svg {
+  color: #faad3b;
+  filter: drop-shadow(0 0 9px #faad3b95);
+}
+
+/* Sidebar open/close animation */
+.sidebar-open {
+  width: 210px;
+  transition: width 0.3s cubic-bezier(.75,0,.18,1);
+}
+
+.sidebar-closed {
+  width: 80px;
+  transition: width 0.3s cubic-bezier(.75,0,.18,1);
+}
+
+.sidebar-closed .nav-link span {
+  opacity: 0;
+  pointer-events: none;
+  margin-left: -18px;
+  width: 0;
+  display: inline-block;
+}
+
+.sidebar-closed .nav-link svg {
+  font-size: 18px;
+}
+
+.sidebar-open .nav-link span {
+  opacity: 1;
+  margin-left: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .navbar-profile-row {
+    gap: 7px;
+    padding: 7px 4px 6px 4px;
+  }
+  .navbar-profile-pic {
+    width: 68px;
+    height: 68px;
+  }
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    min-height: 30px;
+  }
+  .nav-link svg {
+    font-size: 16px;
+  }
+}

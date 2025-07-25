@@ -1,0 +1,122 @@
+#dark {
+  background-color: #5f264a;
+  color: #f4eee0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#dark button:focus,
+#dark input:focus,
+#dark textarea:focus {
+  outline: 2px solid #faad3b;
+  outline-offset: 2px;
+}
+
+/* Apply to body or root containers as needed */
+#dark a {
+  color: #f2d5f2;
+  transition: color 0.25s ease;
+}
+
+#dark a:hover,
+#dark a:focus {
+  color: #faad3b;
+  outline: none;
+}
+
+#dark .footer {
+  background-color: #3a1f3c;
+  color: #f4eee0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure inputs and buttons contrast and have focus styles */
+#dark button,
+#dark input,
+#dark textarea {
+  background-color: #704775;
+  color: #f4eee0;
+  border: 1px solid #a57abb;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+#dark button:hover,
+#dark button:focus {
+  background-color: #a57abb;
+  color: #3a1f3c;
+  outline: none;
+  border-color: #faad3b;
+}
+
+/* Smooth transitions for color changes on all elements */
+#dark * {
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+#light {
+  --bg-color: #f9f9f9;
+  --text-color: #222;
+  --primary-color: #f29f67;
+  --secondary-color: #3b8ff3;
+  --card-bg: #fff;
+  --section-bg: #fff;
+}
+#dark {
+  --bg-color: #121224;
+  --text-color: #e0e0e0;
+  --primary-color: #faad3b;
+  --secondary-color: #7b6ef7;
+  --card-bg: #23243f;
+  --section-bg: #1e1e2c;
+}
+body, #root, #light, #dark {
+  transition: background-color 0.3s, color 0.3s;
+}
+#light {
+  --bg-color: #f9f9f9;
+  --text-color: #222;
+  --primary-color: #f29f67;
+  --secondary-color: #3b8ff3;
+  --card-bg: #fff;
+  --section-bg: #fff;
+}
+#dark {
+  --bg-color: #121224;
+  --text-color: #f4eee0;
+  --primary-color: #faad3b;
+  --secondary-color: #7b6ef7;
+  --card-bg: #23243f;
+  --section-bg: #1e1e2c;
+}
+body, #root, #light, #dark {
+  transition: background-color 0.3s, color 0.3s;
+}
+.main-content {
+  transition: margin-left 0.4s cubic-bezier(.77,0,.18,1);
+  padding: 60px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  background: var(--bg-color);
+  min-height: calc(100vh - 120px);
+}
+@media (max-width:700px) {
+  .main-content { margin-left: 0 !important; padding-top: 90px; gap: 30px; }
+}
+.section-card {
+  background: var(--section-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 26px #f29f6740;
+  padding: 40px 30px;
+  margin: 0 auto;
+  width: 93%;
+  transition: background-color 0.4s, box-shadow 0.4s;
+}
+.footer {
+  color: var(--text-color);
+  background: var(--section-bg);
+  padding: 1rem 0;
+  margin-top: 30px;
+  text-align: center;
+  transition: background-color 0.4s, color 0.4s;
+}
+a { color: var(--primary-color); transition: color 0.3s; }
+a:hover { color: var(--secondary-color); }
