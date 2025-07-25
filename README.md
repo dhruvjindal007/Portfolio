@@ -1,4 +1,4 @@
-# Dhruv Jindal Portfolio Website
+# Portfolio Website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -52,4 +52,3 @@ Welcome to my personal portfolio website built with React. This project showcase
 
 - Node.js (v14 or above recommended)
 - npm or yarn package manager
-
