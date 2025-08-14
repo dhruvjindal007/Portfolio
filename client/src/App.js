@@ -13,6 +13,7 @@ import { FaMoon } from "react-icons/fa";
 import { IoIosSunny } from "react-icons/io";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const { theme, toggleTheme } = useTheme();
