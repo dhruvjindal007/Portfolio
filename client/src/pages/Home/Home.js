@@ -58,7 +58,11 @@ const Home = () => {
         <div className="home-buttons">
           <button
             className="btn-primary"
-            onClick={() => alert('Hire me clicked!')}
+            onClick={() => {
+              document.getElementById('contact')?.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }}
           >
             Hire Me
           </button>
