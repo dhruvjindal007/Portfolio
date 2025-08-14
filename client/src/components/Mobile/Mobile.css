@@ -1,123 +1,84 @@
-.mobile-nav {
+:root {
+  --accent: #f29f67;
+  --accent-strong: #faad3b;
+  --bg-hover: linear-gradient(92deg, #2b216c 78%, #161726 100%);
+  --bg-active: linear-gradient(87deg, #2a255c 75%, #36306c 100%);
+}
+
+/* Backdrop overlay */
+.mobile-backdrop {
   position: fixed;
-  top: 0;
-  width: 100vw;
-  z-index: 1010;
-  background: linear-gradient(90deg, #221944 60%, #14152a 100%);
-  box-shadow: 0 4px 32px #7b6ef788;
-  transition: box-shadow 0.3s ease;
-  border-bottom: 1.5px solid #382e6d80;
-  min-height: 53px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.25s ease-out;
+  z-index: 998;
 }
 
-.menu-icon {
-  font-size: 36px;
-  color: #faad3b;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1020;
-  transition: transform 0.19s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-}
-
-.menu-icon:active {
-  transform: scale(0.93) rotate(-7deg);
-  color: #f36466;
-}
-
-/* Slide-down animated dropdown menu */
+/* Menu container */
 .menu-list {
-  animation: slideDown 0.36s cubic-bezier(0.65, 0.02, 0.32, 0.98);
-  background: rgba(22, 22, 46, 0.98);
-  box-shadow: 0 8px 42px #7b6ef5cc, 0 1.5px 9.5px #f29f67aa;
-  border-bottom-right-radius: 16px;
-  border-bottom-left-radius: 16px;
-  padding: 20px 12vw 18px 7vw;
-  margin-top: 2px;
-  width: 100vw;
-  max-width: 100vw;
-  box-sizing: border-box;
-  /* Ensure it’s below the fixed header */
   position: absolute;
-  top: 53px;
-  left: 0;
+  top: 100%;
   right: 0;
-  z-index: 1005;
+  background: #1e202d;
+  padding: 1rem 0;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+  z-index: 999;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  animation: slideDown 0.25s ease-out;
 }
 
-/* Individual nav links */
-.nav-link {
-  margin: 0 0 13px 0;
-  font-size: 1.18rem;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Nav link styles */
+.mobile-nav-link {
+  margin-bottom: 2px;
+  font-size: 1.05rem;
   font-weight: 600;
   display: flex;
   align-items: center;
+  gap: 0.75rem;
   color: #e3e2fa;
   border-radius: 12px;
-  padding: 9px 5vw 9px 1vw;
+  padding: 9px 1rem;
   cursor: pointer;
-  letter-spacing: 0.2px;
-  transition: background 0.22s ease, color 0.17s ease, box-shadow 0.24s ease;
+  transition: background 0.22s ease, color 0.17s ease, box-shadow 0.24s ease, transform 0.2s ease;
+  text-decoration: none;
 }
 
-/* Nav link icon */
-.nav-link svg {
-  font-size: 28px;
-  margin-right: 15px;
-  filter: drop-shadow(0 0 7px #7b6ef7a5);
-  transition: filter 0.2s ease, color 0.17s ease, transform 0.18s ease;
-  color: #7b6ef7;
-}
-
-/* Active link highlight */
-.active-link {
-  color: #faad3b !important;
-  background: linear-gradient(87deg, #2a255c 75%, #36306c 100%);
-  box-shadow: 0 3px 25px #faad3b2c;
-  font-weight: bold;
-  border-left: 5px solid #faad3b;
-  padding-left: 20px;
-}
-
-/* Hover and focus states for nav links */
-.nav-link:hover,
-.nav-link:focus {
-  color: #f29f67;
-  background: linear-gradient(92deg, #2b216c 78%, #161726 100%);
-  box-shadow: 0 0 20px #f29f6726;
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible {
+  color: var(--accent);
+  background: var(--bg-hover);
+  box-shadow: 0 0 20px rgba(242,159,103,0.15);
+  transform: scale(1.02);
   outline: none;
 }
-.nav-link:hover svg,
-.nav-link:focus svg,
-.active-link svg {
-  color: #faad3b;
-  filter: drop-shadow(0 0 17px #faad3ba8);
-  transform: scale(1.16);
+
+/* Active link style */
+.mobile-active-link {
+  color: var(--accent-strong);
+  background: var(--bg-active);
+  box-shadow: 0 3px 25px rgba(250,173,59,0.17);
+  font-weight: bold;
+  border-left: 5px solid var(--accent-strong);
+  padding-left: 1.25rem;
 }
 
-/* Slide down animation keyframes */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-18px) scaleY(0.91);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scaleY(1.0);
-  }
-}
-
-/* Hide mobile nav on large screens */
-@media (min-width: 700px) {
-  .mobile-nav,
-  .menu-list {
-    display: none;
-  }
+/* Icon spacing */
+.mobile-nav-link svg {
+  flex-shrink: 0;
+  font-size: 1.2em;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Projects.css";
 import todo from "../../assets/images/todo.png";
 
@@ -6,14 +6,16 @@ const projects = [
   {
     id: 1,
     title: "Restaurant Website",
+    description: "A full-featured restaurant platform with food ordering and reservation capabilities.",
     type: "Full Stack",
-    image: "",
+    image: "", // Add actual path or leave empty for placeholder
     tech: ["Node", "React", "MYSQL"],
     link: "#",
   },
   {
     id: 2,
     title: "To-Do List Web App",
+    description: "Elegant, minimal app for personal task management with authentication and data persistence.",
     type: "Full Stack",
     image: todo,
     tech: ["Django", "MySQL"],
@@ -22,6 +24,7 @@ const projects = [
   {
     id: 3,
     title: "Job Portal",
+    description: "Smart job search and apply platform for both recruiters and job-seekers, real-time notifications.",
     type: "Backend",
     image: "https://www.nextwebi.com/assets/img/img-source/mobile-top-banner-28.png",
     tech: ["Node", "Express", "NoSQL"],
@@ -30,90 +33,115 @@ const projects = [
   {
     id: 4,
     title: "Blog Platform",
+    description: "User-friendly blogging engine supporting markdown, tags, comments, and likes.",
     type: "Full Stack",
-    image: "", // use another placeholder or leave blank
+    image: "", // Add actual path or leave empty
     tech: ["React", "Node", "MongoDB"],
     link: "#",
   },
   {
     id: 5,
     title: "Portfolio Site",
+    description: "Snappy, beautiful, and mobile-first personal portfolio (the site you're seeing!).",
     type: "Frontend",
-    image: "", // placeholder or upload a jpg
+    image: "", // Add actual path or leave empty
     tech: ["Next.js", "Tailwind"],
     link: "#",
   },
   {
     id: 6,
     title: "E-Commerce API",
+    description: "Robust and secure REST API powering carts, orders & payment for scalable shops.",
     type: "Backend",
-    image: "", // placeholder
+    image: "", // Add actual path or leave empty
     tech: ["Express", "SQL"],
     link: "#",
   }
-  // Add more projects as needed
 ];
 
+const placeholder = (
+  <div className="card-placeholder" aria-hidden="true">
+    Image Coming Soon
+  </div>
+);
+
 const Projects = () => {
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      cardsRef.current.forEach((el) => el?.classList.add("revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cardsRef.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="section-card project" id="projects" aria-label="Projects">
-      <h2 className="col-12 mt-3 mb-1 text-center">Top Recent Projects</h2>
+    <section className="section-card project" id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading" className="text-center">Top Recent Projects</h2>
       <hr />
-      <div className="row" id="ads">
-        {projects.map(({ id, title, type, image, tech, link }) => (
+      <div className="project-grid">
+        {projects.map(({ id, title, description, type, image, tech, link }, idx) => (
           <article
-            className="col-md-4"
             key={id}
+            ref={(el) => (cardsRef.current[idx] = el)}
+            className="project-card-vertical"
             tabIndex={0}
             aria-label={`${title} project`}
           >
-            <div className="card" tabIndex={-1}>
-              <div className="card-image">
-                <span className="card-notify-badge" aria-label={`${type} project type`}>
-                  {type}
-                </span>
-                {image ? (
-                  <img src={image} alt={title} loading="lazy" />
-                ) : (
-                  <div
-                    style={{
-                      height: "200px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      backgroundColor: "#23243f",
-                      color: "#f29f67",
-                      fontSize: "1.5rem",
-                      fontWeight: "700",
-                      borderRadius: "25px 25px 0 0",
-                    }}
-                  >
-                    No Image
-                  </div>
-                )}
-              </div>
-              <div className="card-image-overly m-auto mt-3">
-                {tech.map((techItem, index) => (
-                  <span key={index} className="card-detail-badge" tabIndex={-1}>
-                    {techItem}
-                  </span>
-                ))}
-              </div>
-              <div className="card-body text-center">
-                <div className="ad-title m-auto">
-                  <h6 className="text-uppercase">{title}</h6>
-                </div>
-                <a
-                  className="ad-btn"
-                  href={link || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View ${title} project`}
-                >
-                  View
-                </a>
-              </div>
+            {image ? (
+              <img
+                src={image}
+                alt={`${title} preview`}
+                className="project-img"
+                width="320"
+                height="200"
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                  borderRadius: "12px"
+                }}
+              />
+            ) : (
+              placeholder
+            )}
+
+            <h3>{title}</h3>
+            <p className="project-desc">{description}</p>
+            <div className="project-tech">
+              {tech.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
             </div>
+            {link && link !== "#" ? (
+              <a
+                className="btn-custom"
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${title} project`}
+              >
+                View Project
+              </a>
+            ) : (
+              <span className="btn-custom disabled">Coming Soon</span>
+            )}
           </article>
         ))}
       </div>

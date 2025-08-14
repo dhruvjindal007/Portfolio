@@ -1,23 +1,54 @@
-/* app.css - Global styles with theme variables and layout */
-
+/* Global reset & box sizing */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-body,
-html,
-#root {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--bg-color, #f9f9f9);
-  color: var(--text-color, #222);
+}
+
+/* Base styles */
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-family-main, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  background: var(--bg-color);
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Theme variables for light mode */
+/* Theme Variables */
+:root {
+  --sidebar-width-expanded: 210px;
+  --sidebar-width-collapsed: 80px;
+}
+.theme-btn.right-fixed {
+  position: fixed;
+  right: 0;
+  top: 100px;
+  height: 50px;
+  width: 50px;
+  background-color: var(--section-bg, #1e1e1e);
+  border: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 101;
+  box-shadow: 0 0 12px var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+.theme-btn.right-fixed:hover,
+.theme-btn.right-fixed:focus-visible {
+  box-shadow: 0 0 38px 3px var(--primary-color);
+  outline: none;
+}
+.theme-btn.right-fixed svg {
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+/* Light Theme */
 #light {
   --bg-color: #f9f9f9;
   --text-color: #222;
@@ -27,7 +58,7 @@ html,
   --section-bg: #fff;
 }
 
-/* Theme variables for dark mode */
+/* Dark Theme */
 #dark {
   --bg-color: #121224;
   --text-color: #f4eee0;
@@ -37,56 +68,66 @@ html,
   --section-bg: #1e1e2c;
 }
 
-/* Container for all main sections - margin-left responds to sidebar width */
+/* Main content layout */
 .main-content {
-  margin-left: 210px;
-  transition: margin-left 0.4s cubic-bezier(.77, 0, .18, 1);
-  padding: 60px 0 0 0;
+  margin-left: var(--sidebar-width-expanded);
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 60px;
-  background: var(--bg-color);
   min-height: calc(100vh - 120px);
+  transition: margin-left 0.4s cubic-bezier(.77, 0, .18, 1);
 }
 
-/* Responsive: remove margin on small screens */
+/* Collapsed sidebar state */
+body.sidebar-collapsed .main-content {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+/* Responsive adjustments */
 @media (max-width: 700px) {
   .main-content {
-    margin-left: 0 !important;
+    margin-left: 0;
     padding-top: 90px;
     gap: 30px;
   }
 }
 
-/* Section card wrapper for consistent background, padding and shadows */
+/* Section styling */
 .section-card {
   background: var(--section-bg);
   border-radius: 16px;
-  box-shadow: 0 4px 26px #f29f6740;
+  box-shadow: 0 4px 26px rgba(0, 0, 0, 0.2);
   padding: 40px 30px;
   margin: 0 auto;
   width: 93%;
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Footer styling consistent with theme */
+/* Footer */
 .footer {
   color: var(--text-color);
   background: var(--section-bg);
   padding: 1rem 0;
-  margin-top: 30px;
   text-align: center;
-  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Link styles with smooth transitions */
+/* Links */
 a {
   color: var(--primary-color);
   transition: color 0.3s ease;
 }
-
 a:hover,
 a:focus {
   color: var(--secondary-color);
-  outline: none;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Edu.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -7,46 +7,84 @@ import { FaUniversity } from "react-icons/fa";
 
 const educationData = [
   {
-    degree: "10th class | CBSE",
+    degree: "10th Class | CBSE",
     institution: "Ryan International School",
-    Result: "94%",
+    result: "94%",
     date: "2015",
-    icon: <MdSchool aria-label="School Icon" />,
+    iconType: "school",
   },
   {
-    degree: "12th class | CBSE",
+    degree: "12th Class | CBSE",
     institution: "St Peter's Senior Secondary School",
-    Result: "89%",
+    result: "89%",
     date: "2017",
-    icon: <MdSchool aria-label="School Icon" />,
+    iconType: "school",
   },
   {
     degree: "B.Tech in Electrical Engineering",
     institution: "Punjab Engineering College",
-    Result: "7.12 (Till date)",
-    date: "2017 - Present",
-    icon: <FaUniversity aria-label="University Icon" />,
-  },
+    result: "7.12 CGPA (Till date)",
+    date: "2017 – Present",
+    iconType: "university",
+  }
 ];
 
 function Edu() {
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Respect reduced motion — reveal all instantly
+      itemsRef.current.forEach(el => el?.classList.add('revealed'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target); // Only animate once
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    itemsRef.current.forEach(el => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="container edu section-card" id="education" aria-label="Education qualifications">
-      <h2>EDUCATION QUALIFICATIONS</h2>
+    <section className="edu section-card" id="education" aria-labelledby="education-title">
+      <h2 id="education-title">Education Qualifications</h2>
       <hr />
       <VerticalTimeline>
         {educationData.map((edu, index) => (
           <VerticalTimelineElement
             key={index}
-            className="vertical-timeline-element--work"
-            contentStyle={{ background: "inherit", color: "inherit", boxShadow: "none" }}
-            contentArrowStyle={{ borderRight: "8px solid #f29f67" }}
+            aria-label={`${edu.degree} at ${edu.institution}, Result: ${edu.result}`}
             date={edu.date}
-            iconStyle={{ background: "inherit", color: "inherit", boxShadow: "none" }}
-            icon={edu.icon}
+            icon={
+              edu.iconType === "school"
+                ? <MdSchool aria-hidden="true" />
+                : <FaUniversity aria-hidden="true" />
+            }
+            // Custom class for animation
+            contentClassName="timeline-reveal"
+            contentArrowClassName="timeline-reveal-arrow"
           >
-            <h3 className="vertical-timeline-element-title">{edu.degree}</h3>
-            <h4 className="vertical-timeline-element-subtitle">{edu.institution}</h4>
+            <div
+              className="timeline-reveal-item"
+              ref={el => (itemsRef.current[index] = el)}
+            >
+              <h3 className="vertical-timeline-element-title">{edu.degree}</h3>
+              <p className="vertical-timeline-element-subtitle">{edu.institution}</p>
+              <p className="edu-result">Result: {edu.result}</p>
+            </div>
           </VerticalTimelineElement>
         ))}
       </VerticalTimeline>

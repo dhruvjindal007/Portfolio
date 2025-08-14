@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Techstack.css";
-import Fade from "react-reveal/Fade";
 import { BsFiletypeHtml, BsFiletypeCss, BsBootstrap } from "react-icons/bs";
 import { FaNodeJs } from "react-icons/fa";
 import { TbBrandNextjs } from "react-icons/tb";
@@ -15,43 +14,66 @@ import {
 } from "react-icons/si";
 
 const TechstackList = [
-  { _id: 1, name: "HTML", icon: BsFiletypeHtml },
-  { _id: 2, name: "CSS", icon: BsFiletypeCss },
-  { _id: 3, name: "Bootstrap", icon: BsBootstrap },
-  { _id: 4, name: "Javascript", icon: SiJavascript },
-  { _id: 7, name: "React JS", icon: SiReact },
-  { _id: 10, name: "Tailwind CSS", icon: SiTailwindcss },
-  { _id: 11, name: "Figma", icon: SiFigma },
-  { _id: 15, name: "Node JS", icon: FaNodeJs },
-  { _id: 19, name: "SQL", icon: SiMysql },
-  { _id: 21, name: "Git / Github", icon: SiGithub },
-  { _id: 22, name: "Docker", icon: SiDocker },
-  { _id: 23, name: "Next.js", icon: TbBrandNextjs },
+  { id: "html", name: "HTML", icon: BsFiletypeHtml },
+  { id: "css", name: "CSS", icon: BsFiletypeCss },
+  { id: "bootstrap", name: "Bootstrap", icon: BsBootstrap },
+  { id: "js", name: "JavaScript", icon: SiJavascript },
+  { id: "react", name: "React JS", icon: SiReact },
+  { id: "tailwind", name: "Tailwind CSS", icon: SiTailwindcss },
+  { id: "figma", name: "Figma", icon: SiFigma },
+  { id: "node", name: "Node JS", icon: FaNodeJs },
+  { id: "sql", name: "SQL", icon: SiMysql },
+  { id: "git", name: "Git & GitHub", icon: SiGithub },
+  { id: "docker", name: "Docker", icon: SiDocker },
+  { id: "next", name: "Next.js", icon: TbBrandNextjs },
 ];
 
 const Techstack = () => {
+  const itemsRef = useRef([]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      itemsRef.current.forEach((el) => el?.classList.add("reveal-in"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    itemsRef.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="techstack" id="techstack" aria-label="Technologies Stack">
-      <h2>Technologies Stack</h2>
+    <section className="techstack" id="techstack" aria-labelledby="techstack-heading">
+      <h2 id="techstack-heading">Technologies Stack</h2>
       <hr />
-      <p>👉 Including programming languages, frameworks, databases, front-end and back-end tools, and APIs</p>
-      <div className="skill-row" role="list">
-        {TechstackList.map(({ _id, name, icon: Icon }) => (
-          <Fade left key={_id}>
-            <div
-              role="listitem"
-              tabIndex={0}
-              aria-label={`${name} technology`}
-              className="skill-card"
-              onFocus={(e) => (e.currentTarget.style.boxShadow = "0 0 12px #34d1c0aa")}
-              onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
-            >
-              <Icon className="skill-icon" aria-hidden="true" />
-              <h5>{name}</h5>
-            </div>
-          </Fade>
+      <p className="techstack-sub">
+        👉 Including programming languages, frameworks, databases, front-end and back-end tools, and APIs
+      </p>
+
+      <ul className="skill-grid" role="list">
+        {TechstackList.map(({ id, name, icon: Icon }, idx) => (
+          <li
+            key={id}
+            className="skill-card"
+            ref={(el) => (itemsRef.current[idx] = el)}
+            style={{ "--stagger": `${idx * 70}ms` }}
+            tabIndex={0}
+            aria-label={name}
+          >
+            <Icon className="skill-icon" aria-hidden="true" focusable="false" />
+            <h5 className="skill-name">{name}</h5>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

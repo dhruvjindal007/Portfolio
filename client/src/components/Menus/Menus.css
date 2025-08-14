@@ -1,128 +1,170 @@
-/* ==== NAVBAR PROFILE (LARGE PHOTO) ==== */
+/* Tokens (optionally move to :root in a global CSS) */
+:root {
+  --nav-gap: 1rem;
+  --nav-pad: 1rem;
+  --thumb-w: 90px;
+  --thumb-h: 90px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+
+  --brand: #7b6ef7;
+  --brand-glow: #7b6ef799;
+  --accent: #f29f67;
+  --accent-glow: #f29f67bb;
+
+  --link-bg-hover: linear-gradient(90deg, #26284a 60%, #14152a 100%);
+  --link-bg-active: linear-gradient(87deg, #251e37 80%, #231b2c 100%);
+  --shadow-thumb: 0 2px 24px 4px #7b6ef5aa;
+  --shadow-thumb-hover: 0 4px 44px 10px #7b6ef5dd;
+  --shadow-link-hover: 0 2px 16px 1px #f29f674a;
+  --shadow-link-active: 0 0 11px #faad3b41;
+
+  --ease-smooth: cubic-bezier(.25, .8, .25, 1);
+  --t-fast: 150ms var(--ease-smooth);
+  --t-norm: 300ms var(--ease-smooth);
+}
+
+/* Profile row */
 .navbar-profile-row {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px 16px 12px 16px;
-  width: 98%;
-  justify-content: flex-start;
+  gap: var(--nav-gap);
+  padding: var(--nav-pad);
 }
 
 .navbar-profile-pic {
-  width: 90px;           /* Larger size */
-  height: 90px;
-  border-radius: 18px;   /* Slightly rounded, or use 50% for circles */
+  width: var(--thumb-w);
+  height: var(--thumb-h);
+  border-radius: var(--radius-lg);
   object-fit: cover;
   background: linear-gradient(120deg, #212a42 50%, #171c34 100%);
-  box-shadow: 0 2px 24px 4px #7b6ef5aa;
-  margin: 0;             /* Remove vertical margin */
-  display: block;
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-thumb);
+  transition: transform var(--t-norm), box-shadow var(--t-norm);
 }
 
-.navbar-profile-pic:hover {
+.navbar-profile-pic:hover,
+.navbar-profile-pic:focus-visible {
   transform: scale(1.07) rotate(-1deg);
-  box-shadow: 0 4px 44px 10px #7b6ef5dd;
+  box-shadow: var(--shadow-thumb-hover);
+  outline: none;
 }
 
-/* ==== NAVIGATION LINKS ==== */
+/* Nav container widths (synced with sidebar) */
+.sidebar-open {
+  width: var(--sidebar-width-expanded, 210px);
+  transition: width var(--t-norm);
+}
+
+.sidebar-closed {
+  width: var(--sidebar-width-compact, 80px);
+  transition: width var(--t-norm);
+}
+
+/* List semantics */
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--nav-pad) var(--nav-pad);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  /* Staggered appearance */
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: navItemIn 420ms var(--ease-smooth) forwards;
+  animation-delay: var(--stagger, 0ms);
+}
+
+@keyframes navItemIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Links */
 .nav-link {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 8px 16px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   font-size: 1rem;
   cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: transform var(--t-norm), box-shadow var(--t-norm), background var(--t-norm), color var(--t-norm);
+  text-decoration: none;
+  color: inherit;
+  outline: none; /* rely on :focus-visible below */
 }
 
+.nav-text {
+  white-space: nowrap;
+}
+
+/* Icons */
 .nav-link svg {
-  color: #7b6ef7;
-  filter: drop-shadow(0 0 4px #7b6ef799);
-  transition: color 0.3s ease, filter 0.3s ease;
+  color: var(--brand);
+  filter: drop-shadow(0 0 4px var(--brand-glow));
+  transition: color var(--t-norm), filter var(--t-norm), transform var(--t-fast);
 }
 
+/* Hover/Focus */
 .nav-link:hover,
 .nav-link:focus-visible {
-  background: linear-gradient(90deg, #26284a 60%, #14152a 100%);
-  color: #f29f67;
-  box-shadow: 0 2px 16px 1px #f29f674a;
-  outline: none;
+  background: var(--link-bg-hover);
+  color: var(--accent);
+  box-shadow: var(--shadow-link-hover);
   transform: scale(1.03);
 }
 
 .nav-link:hover svg,
 .nav-link:focus-visible svg {
-  color: #f29f67;
-  filter: drop-shadow(0 0 13px #f29f67bb);
+  color: var(--accent);
+  filter: drop-shadow(0 0 13px var(--accent-glow));
 }
 
-.nav-link span {
-  transition: opacity 0.2s ease, margin 0.2s ease;
-}
-
-.nav-link .active,
-.nav-link .active span,
-.nav-link span.active {
-  color: #f29f67;
-  border-left: 3.5px solid #f29f67;
+/* Active state from react-scroll (.active class is applied automatically) */
+.nav-link.active {
+  color: var(--accent);
+  border-left: 3.5px solid var(--accent);
   padding-left: 13px;
-  background: linear-gradient(87deg, #251e37 80%, #231b2c 100%);
-  box-shadow: 0 0 11px #faad3b41;
-  border-radius: 5.5px;
+  background: var(--link-bg-active);
+  box-shadow: var(--shadow-link-active);
 }
 
-.nav-link .active svg {
-  color: #faad3b;
-  filter: drop-shadow(0 0 9px #faad3b95);
+/* Accessibility: visible focus ring for keyboard users if background doesn’t suffice */
+.nav-link:focus-visible {
+  outline: 2px solid #faad3b;
+  outline-offset: 3px;
+  border-radius: calc(var(--radius-md) + 2px);
 }
 
-/* Sidebar open/close animation */
-.sidebar-open {
-  width: 210px;
-  transition: width 0.3s cubic-bezier(.75,0,.18,1);
-}
-
-.sidebar-closed {
-  width: 80px;
-  transition: width 0.3s cubic-bezier(.75,0,.18,1);
-}
-
-.sidebar-closed .nav-link span {
+/* Closed state hides text but remains accessible for screen readers (text is present in DOM) */
+.sidebar-closed .nav-link .nav-text {
   opacity: 0;
-  pointer-events: none;
   margin-left: -18px;
-  width: 0;
-  display: inline-block;
+  transition: opacity var(--t-norm), margin-left var(--t-norm);
 }
 
-.sidebar-closed .nav-link svg {
-  font-size: 18px;
-}
-
-.sidebar-open .nav-link span {
-  opacity: 1;
-  margin-left: 0;
-}
-
-/* Responsive adjustments */
+/* Mobile sizes */
 @media (max-width: 700px) {
-  .navbar-profile-row {
-    gap: 7px;
-    padding: 7px 4px 6px 4px;
-  }
   .navbar-profile-pic {
     width: 68px;
     height: 68px;
   }
-  .nav-link {
-    padding: 8px 12px;
-    font-size: 0.95rem;
-    min-height: 30px;
-  }
-  .nav-link svg {
-    font-size: 16px;
+
+  .nav-list {
+    padding-bottom: 0.5rem;
   }
 }

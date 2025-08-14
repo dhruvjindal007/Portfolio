@@ -1,11 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom/client"; // Use React 18+ root API
+import ReactDOM from "react-dom";
 import App from "./App";
 import { ThemeProvider } from "./context/ThemeContext";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <ThemeProvider>
     <App />
-  </ThemeProvider>
+  </ThemeProvider>,
+  document.getElementById("root")
 );

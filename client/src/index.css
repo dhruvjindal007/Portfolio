@@ -1,56 +1,8 @@
-#dark {
-  background-color: #5f264a;
-  color: #f4eee0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* =====================
+   THEME VARIABLES
+   ===================== */
 
-#dark button:focus,
-#dark input:focus,
-#dark textarea:focus {
-  outline: 2px solid #faad3b;
-  outline-offset: 2px;
-}
-
-/* Apply to body or root containers as needed */
-#dark a {
-  color: #f2d5f2;
-  transition: color 0.25s ease;
-}
-
-#dark a:hover,
-#dark a:focus {
-  color: #faad3b;
-  outline: none;
-}
-
-#dark .footer {
-  background-color: #3a1f3c;
-  color: #f4eee0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Ensure inputs and buttons contrast and have focus styles */
-#dark button,
-#dark input,
-#dark textarea {
-  background-color: #704775;
-  color: #f4eee0;
-  border: 1px solid #a57abb;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-#dark button:hover,
-#dark button:focus {
-  background-color: #a57abb;
-  color: #3a1f3c;
-  outline: none;
-  border-color: #faad3b;
-}
-
-/* Smooth transitions for color changes on all elements */
-#dark * {
-  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-}
+/* Light theme */
 #light {
   --bg-color: #f9f9f9;
   --text-color: #222;
@@ -58,26 +10,18 @@
   --secondary-color: #3b8ff3;
   --card-bg: #fff;
   --section-bg: #fff;
+  --link-color: #f29f67;
+  --link-hover: #3b8ff3;
+  --button-bg: #f2f2f2;
+  --button-hover-bg: #ddd;
+  --button-text: #222;
+  --button-hover-text: #000;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --footer-bg: #fff;
 }
-#dark {
-  --bg-color: #121224;
-  --text-color: #e0e0e0;
-  --primary-color: #faad3b;
-  --secondary-color: #7b6ef7;
-  --card-bg: #23243f;
-  --section-bg: #1e1e2c;
-}
-body, #root, #light, #dark {
-  transition: background-color 0.3s, color 0.3s;
-}
-#light {
-  --bg-color: #f9f9f9;
-  --text-color: #222;
-  --primary-color: #f29f67;
-  --secondary-color: #3b8ff3;
-  --card-bg: #fff;
-  --section-bg: #fff;
-}
+
+/* Dark theme */
 #dark {
   --bg-color: #121224;
   --text-color: #f4eee0;
@@ -85,38 +29,82 @@ body, #root, #light, #dark {
   --secondary-color: #7b6ef7;
   --card-bg: #23243f;
   --section-bg: #1e1e2c;
+  --link-color: #f2d5f2;
+  --link-hover: #faad3b;
+  --button-bg: #704775;
+  --button-hover-bg: #a57abb;
+  --button-text: #f4eee0;
+  --button-hover-text: #3a1f3c;
+  --input-bg: #704775;
+  --input-border: #a57abb;
+  --footer-bg: #3a1f3c;
 }
-body, #root, #light, #dark {
-  transition: background-color 0.3s, color 0.3s;
+
+/* =====================
+   BASE THEME STYLES
+   ===================== */
+
+body,
+#root {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-.main-content {
-  transition: margin-left 0.4s cubic-bezier(.77,0,.18,1);
-  padding: 60px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  background: var(--bg-color);
-  min-height: calc(100vh - 120px);
+
+/* Links */
+a {
+  color: var(--link-color);
+  transition: color 0.25s ease;
 }
-@media (max-width:700px) {
-  .main-content { margin-left: 0 !important; padding-top: 90px; gap: 30px; }
+a:hover,
+a:focus {
+  color: var(--link-hover);
+  outline: none;
 }
+
+/* Footer */
+.footer {
+  background-color: var(--footer-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Buttons & Inputs */
+button,
+input,
+textarea {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+
+button:hover,
+button:focus {
+  background-color: var(--button-hover-bg);
+  color: var(--button-hover-text);
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Section card */
 .section-card {
   background: var(--section-bg);
   border-radius: 16px;
-  box-shadow: 0 4px 26px #f29f6740;
+  box-shadow: 0 4px 26px rgba(0, 0, 0, 0.2);
   padding: 40px 30px;
   margin: 0 auto;
   width: 93%;
-  transition: background-color 0.4s, box-shadow 0.4s;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
-.footer {
-  color: var(--text-color);
-  background: var(--section-bg);
-  padding: 1rem 0;
-  margin-top: 30px;
-  text-align: center;
-  transition: background-color 0.4s, color 0.4s;
-}
-a { color: var(--primary-color); transition: color 0.3s; }
-a:hover { color: var(--secondary-color); }

@@ -1,27 +1,30 @@
+:root {
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --radius-lg: 16px;
+}
+
 .contact-container {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 50px;
-  padding: 40px;
+  gap: var(--space-xl, 3rem);
+  padding: var(--space-lg);
   background-color: var(--card-bg);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   max-width: 1200px;
   margin: 0 auto;
   box-shadow: 0 4px 24px #faad3b33;
   transition: background-color 0.3s ease;
 }
 
-.contact-image, .contact-form {
+.contact-image,
+.contact-form {
   flex: 1;
   min-width: 300px;
   max-width: 500px;
-}
-
-.image-wrapper {
-  width: 100%;
-  height: 100%;
 }
 
 .image {
@@ -35,59 +38,80 @@
 }
 
 .image:hover,
-.image:focus {
+.image:focus-visible {
   transform: scale(1.05) rotate(-1.5deg);
   box-shadow: 0 0 20px var(--primary-color);
   outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+  .image:hover,
+  .image:focus-visible {
+    transform: none;
+  }
 }
 
 .card2 {
   background: var(--section-bg);
   border-radius: 12px;
   box-shadow: 0 2px 24px #f29f6740;
-  margin: 0 20px;
-  transition: background 0.3s ease;
-  min-width: 320px; /* ensure sufficient width for the form */
-  max-width: 500px;
+  padding: var(--space-md);
+  width: 100%;
 }
 
-.contact-header {
+.contact-header-title {
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: var(--space-md);
+}
+
+.contact-header-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: var(--space-md);
+}
+
+.contact-header-links a {
+  color: var(--primary-color);
+  transition: transform 0.2s ease;
+}
+
+.contact-header-links a:hover,
+.contact-header-links a:focus-visible {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: var(--text-color);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
 .line {
   height: 2px;
   width: 45px;
   background-color: var(--primary-color);
-  animation: slideInLine 0.8s ease-out;
-}
-
-.or {
-  color: #555;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
 }
 
 input,
 textarea {
-  padding: 12px;
+  padding: var(--space-sm);
   border-radius: 7px;
   border: 1px solid #ccc;
-  margin: 10px 0;
+  margin-bottom: var(--space-md);
   width: 100%;
   background: #fafbfc;
   color: var(--text-color);
   font-size: 1rem;
   transition: border 0.3s ease, box-shadow 0.3s ease;
-  resize: vertical;
 }
 
 input:focus,
@@ -101,19 +125,16 @@ textarea:focus {
   background-color: var(--primary-color);
   color: white;
   border-radius: 10px;
-  padding: 12px;
-  margin-top: 20px;
+  padding: var(--space-sm);
   font-weight: bold;
   border: none;
   width: 100%;
   box-shadow: 0 0 18px var(--primary-color);
   transition: background 0.3s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  user-select: none;
 }
 
 .button:hover,
-.button:focus {
+.button:focus-visible {
   background-color: var(--secondary-color);
   box-shadow: 0 0 28px var(--secondary-color);
   outline: none;
@@ -122,14 +143,10 @@ textarea:focus {
 @media (max-width: 850px) {
   .contact-container {
     flex-direction: column;
-    padding: 22px 12px;
-    gap: 30px;
-    margin-left: 0;
+    padding: var(--space-md);
+    gap: var(--space-lg);
   }
   .card2 {
-    margin: 0 auto;
     max-width: 100%;
-    width: 100%;
-    min-width: auto;
   }
 }

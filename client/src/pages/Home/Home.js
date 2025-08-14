@@ -1,60 +1,79 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import './Home.css';
-import { useTheme } from '../../context/ThemeContext';
 import { Typewriter } from 'react-simple-typewriter';
-import { FaMoon } from "react-icons/fa";
-import { IoIosSunny } from "react-icons/io";
-import Fade from 'react-reveal/Fade';
 import Resume from '../../assets/docs/Resume.pdf';
 
 const Home = () => {
-  const [theme, setTheme] = useTheme();
+  const homeRef = useRef(null);
 
-  const handleTheme = () => {
-    setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
-  };
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      homeRef.current?.classList.add('revealed');
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (homeRef.current) observer.observe(homeRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className='container-fluid home-container' id="home">
-      <button
-        className='theme-btn'
-        onClick={handleTheme}
-        aria-label="Toggle Theme"
-        type="button"
-        onKeyDown={(e) => e.key === 'Enter' && handleTheme()}
-      >
-        {theme === 'light' ? (<FaMoon size={25} />) : (<IoIosSunny size={25} />)}
-      </button>
-      <Fade right duration={1000}>
-        <div className='container home-content'>
-          <h1>Hi, I'm Dhruv Jindal</h1>
-          <h2>
-            <Typewriter
-              words={[
-                'FullStack Dev',
-                'Mern Stack Dev',
-                'React Native Dev',
-                'Eat Sleep Code Repeat!'
-              ]}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={100}
-              deleteSpeed={70}
-              delaySpeed={1500}
-            />
-          </h2>
-          <Fade bottom>
-            <div className='home-buttons'>
-              <button className='btn-primary' onClick={() => alert('Hire me clicked!')}>Hire Me</button>
-              <a className='btn-cv' href={Resume} download="Dhruv_Jindal_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                Download Resume
-              </a>
-            </div>
-          </Fade>
+    <section
+      className="home-container"
+      id="home"
+      aria-label="Home Section"
+      ref={homeRef}
+    >
+      <div className="home-content centered">
+        <h1 className="hero-title">
+          Hi, I'm <span className="highlight">Dhruv Jindal</span>
+        </h1>
+        <h2 className="hero-subtitle">
+          <Typewriter
+            words={[
+              'FullStack Developer',
+              'MERN Stack Dev',
+              'React Native Dev',
+              'Eat Sleep Code Repeat!'
+            ]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={100}
+            deleteSpeed={70}
+            delaySpeed={1500}
+          />
+        </h2>
+        <p className="home-tagline">
+          Passionate about creating cutting-edge web and mobile applications with
+          clean design and efficient code.
+        </p>
+        <div className="home-buttons">
+          <button
+            className="btn-primary"
+            onClick={() => alert('Hire me clicked!')}
+          >
+            Hire Me
+          </button>
+          <a
+            className="btn-cv"
+            href={Resume}
+            download="Dhruv_Jindal_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download Resume
+          </a>
         </div>
-      </Fade>
-    </div>
+      </div>
+    </section>
   );
 };
 
