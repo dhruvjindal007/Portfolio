@@ -5,6 +5,7 @@ import Edu from "./pages/Edu/Edu";
 import Techstack from "./pages/Techstack/Techstack";
 import Projects from "./pages/Projects/Projects";
 import Contact from "./pages/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 import ScrollToTop from "react-scroll-to-top";
 import { useTheme } from './context/ThemeContext';
 import Mobile from "./components/Mobile/Mobile";
@@ -46,16 +47,8 @@ function App() {
         <Techstack />
         <Projects />
         <Contact />
+        <Footer/>
       </main>
-      <footer className="footer">
-        <h4 className="text-center">Footer © 2025</h4>
-      </footer>
-      <ScrollToTop
-        smooth
-        color="#f29f67"
-        style={{ backgroundColor: "#1e1e2c", borderRadius: "80px" }}
-        aria-label="Scroll to top"
-      />
     </>
   );
 }

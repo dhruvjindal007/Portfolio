@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import "./Projects.css";
 import todo from "../../assets/images/todo.png";
+import restaurant from "../../assets/images/restaurant.png";
+import job from "../../assets/images/job.jpg";
+import blog from "../../assets/images/blog.png";
+import portfolio from "../../assets/images/portfolio.png";
 
 const projects = [
   {
@@ -8,9 +12,9 @@ const projects = [
     title: "Restaurant Website",
     description: "A full-featured restaurant platform with food ordering and reservation capabilities.",
     type: "Full Stack",
-    image: "", // Add actual path or leave empty for placeholder
+    image: restaurant,
     tech: ["Node", "React", "MYSQL"],
-    link: "#",
+    link: "https://github.com/dhruvjindal007/Little-Lemon",
   },
   {
     id: 2,
@@ -19,14 +23,14 @@ const projects = [
     type: "Full Stack",
     image: todo,
     tech: ["Django", "MySQL"],
-    link: "#",
+    link: "https://github.com/dhruvjindal007/To_Do_List",
   },
   {
     id: 3,
     title: "Job Portal",
     description: "Smart job search and apply platform for both recruiters and job-seekers, real-time notifications.",
     type: "Backend",
-    image: "https://www.nextwebi.com/assets/img/img-source/mobile-top-banner-28.png",
+    image: job,
     tech: ["Node", "Express", "NoSQL"],
     link: "#",
   },
@@ -35,16 +39,16 @@ const projects = [
     title: "Blog Platform",
     description: "User-friendly blogging engine supporting markdown, tags, comments, and likes.",
     type: "Full Stack",
-    image: "", // Add actual path or leave empty
+    image: blog,
     tech: ["React", "Node", "MongoDB"],
     link: "#",
   },
   {
     id: 5,
     title: "Portfolio Site",
-    description: "Snappy, beautiful, and mobile-first personal portfolio (the site you're seeing!).",
+    description: "Snappy, beautiful, and mobile-first personal portfolio. Upgraded version of the site you are watching.",
     type: "Frontend",
-    image: "", // Add actual path or leave empty
+    image: portfolio,
     tech: ["Next.js", "Tailwind"],
     link: "#",
   },
@@ -53,7 +57,7 @@ const projects = [
     title: "E-Commerce API",
     description: "Robust and secure REST API powering carts, orders & payment for scalable shops.",
     type: "Backend",
-    image: "", // Add actual path or leave empty
+    image: "",
     tech: ["Express", "SQL"],
     link: "#",
   }
